@@ -1,0 +1,13 @@
+{
+	"name": "Rust Dev Container",
+	  "build" : {
+		"dockerfile" : "Dockerfile"
+	  },
+	  "remoteEnv": {
+		"POSTGRES_USER": "postgres",
+		"POSTGRES_PASSWORD": "postgres",
+		"POSTGRES_DB": "postgres",
+		"POSTGRES_HOSTNAME": "127.0.0.1",
+		"POSTGRES_PORT": "5432"
+	  }
+}
