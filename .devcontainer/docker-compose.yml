@@ -1,0 +1,41 @@
+# Specifies the version of the Docker Compose file format
+version: '3.8'
+
+# Defines volumes that can be shared between services or persisted data
+volumes:
+  postgres-data:
+
+# Defines all the services (containers) that will be started
+services:
+  # Defines the app service
+  app:
+    # Specifies where the Dockerfile for this service can be found
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # Defines environment variables from a file, should match with devcontainer.json
+    env_file:
+      - .env
+    # Mounts a volume, linking the workspace
+    volumes:
+      - ..:/workspaces:cached
+    # Overrides the default command for the container
+    command: sleep infinity
+    # Sets the network mode, linking it to the db service
+    network_mode: service:db
+  
+  # Defines the db (database) service
+  db:
+    # Specifies the image to use for the database
+    image: postgres:14.1
+    # Configures the restart policy
+    restart: unless-stopped
+    # Mounts a volume for PostgreSQL data
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    # Defines environment variables from a file, should match with devcontainer.json
+    env_file:
+      - .env
+    # Exposes the database port to the host
+    ports:
+      - "5243:5432"

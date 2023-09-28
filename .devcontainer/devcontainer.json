@@ -1,0 +1,41 @@
+{
+    // The name of the development container, shown in Visual Studio Code
+	"name": "Rust and PostgreSQL", 
+
+    // Specifies the docker-compose file to use for this environment
+	"dockerComposeFile": "docker-compose.yml", 
+
+    // Defines which service in the docker-compose file should be the dev container
+	"service": "app", 
+
+    // Maps the workspace folder within the development container
+	"workspaceFolder": "/workspaces/", 
+
+    // Specifies which ports from the container should be forwarded to the host
+	"forwardPorts": [5432],
+	
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": { 
+				"lldb.executable": "/usr/bin/lldb",
+				// VS Code don't watch files under ./target
+				"files.watcherExclude": {
+					"**/target/**": true
+				},
+				"rust-analyzer.checkOnSave.command": "clippy"
+			},
+			
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"vadimcn.vscode-lldb",
+				"mutantdino.resourcemonitor",
+				"rust-lang.rust-analyzer",
+				"tamasfe.even-better-toml",
+				"serayuzgur.crates"
+			]
+		}
+	},
+}
